@@ -95,7 +95,7 @@ def run_checks(report: dict | None = None) -> dict:
         WHERE m.scheme=? AND b.testament='OT' AND m.scheme_ref NOT LIKE '%.0'""", (NRSV,))}
     bsb_ot = {r[0] for r in con.execute("""
         SELECT t.scheme_ref FROM verse_text t JOIN book b ON t.scheme_ref LIKE b.osis || '.%'
-        WHERE t.translation='BSB' AND b.testament='OT'""")}
+        WHERE t.translation='BSB' AND b.testament='OT' AND t.scheme_ref NOT LIKE '%.0'""")}
     diff = sorted(nrsv_ot ^ bsb_ot)
     check("OT English verse sets agree (STEPBible vs BSB)", diff,
           "OT KJV refs are taken from STEPBible's English refs; this check proves the two sets match.")
@@ -111,6 +111,32 @@ def run_checks(report: dict | None = None) -> dict:
           WHERE m2.scheme=? AND m2.osis_ref=v.osis_ref AND m2.scheme_ref LIKE '%.0')
         ORDER BY v.ord""", (KJV, KJV))]
     check("every canonical verse is reachable from a BSB verse or psalm title", unreachable)
+
+
+    # 12. Psalm titles: every KJV-scheme superscription in the versification map
+    #     has BSB title text, and every BSB title has a mapping.
+    map_titles = {r[0] for r in con.execute(
+        "SELECT DISTINCT scheme_ref FROM versification_map WHERE scheme=? AND scheme_ref LIKE 'Ps.%.0'", (KJV,))}
+    bsb_titles = {r[0] for r in con.execute(
+        "SELECT scheme_ref FROM verse_text WHERE translation='BSB' AND scheme_ref LIKE '%.0'")}
+    check("psalm titles line up (BSB vs STEPBible)", sorted(map_titles ^ bsb_titles))
+
+    # 13. Every cross reference endpoint resolves.
+    # OpenBible uses English numbering; a few refs follow the NRSV/ESV split
+    # (e.g. 3 John 1:15), so a ref may resolve through either English scheme.
+    kjv_refs = {r[0] for r in con.execute(
+        "SELECT DISTINCT scheme_ref FROM versification_map WHERE scheme IN (?,?)", (KJV, NRSV))}
+    bad_x = [f"{a} -> {b}-{c}" for a, b, c in con.execute("SELECT from_ref, to_start, to_end FROM xref")
+             if a not in kjv_refs or b not in kjv_refs or c not in kjv_refs]
+    check("every cross reference resolves", bad_x)
+
+    # 14. Every OpenBible place-verse link resolves; every point is a valid coordinate.
+    bad_geo_v = [f"{p}: {r}" for p, r in con.execute("SELECT place_id, kjv_ref FROM geo_place_verse")
+                 if r not in kjv_refs]
+    check("every OpenBible place verse resolves", bad_geo_v)
+    bad_pts = list(con.execute("""SELECT place_id, rank, lat, lon FROM geo_identification
+        WHERE (lat IS NULL) <> (lon IS NULL) OR lat NOT BETWEEN -90 AND 90 OR lon NOT BETWEEN -180 AND 180"""))
+    check("OpenBible coordinates are valid", bad_pts)
 
     con.close()
     result = {"passed": all(c["passed"] for c in checks), "checks": checks}

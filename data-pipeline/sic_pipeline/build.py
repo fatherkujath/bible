@@ -7,6 +7,7 @@ from pathlib import Path
 
 from .common import BOOKS, BUILD_DIR, DB_PATH, REPORT_PATH, connect, load_manifest
 from .importers.bsb import import_bsb
+from .importers.openbible import import_geo, import_xrefs
 from .importers.step_lexicon import import_lexicons
 from .importers.step_texts import import_step_texts
 from .importers.theographic import import_theographic
@@ -42,6 +43,9 @@ def build() -> dict:
         import_bsb(con, report)
         print("  importing Theographic")
         import_theographic(con, report)
+        print("  importing OpenBible cross references and places")
+        import_xrefs(con, report)
+        import_geo(con, report)
         con.executemany("INSERT INTO build_info VALUES (?,?)", [
             ("schema_sha256", hashlib.sha256(SCHEMA.read_bytes()).hexdigest()),
             ("sources", json.dumps(report["sources"], sort_keys=True)),

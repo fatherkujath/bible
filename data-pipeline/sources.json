@@ -66,7 +66,41 @@
       "license_group": "share-alike",
       "attribution": "Theographic Bible Metadata by Robert Rouse (viz.bible), licensed CC BY-SA 4.0. Includes Easton's Bible Dictionary (1897, public domain text).",
       "homepage": "https://theographic.netlify.app",
-      "notes": "Event and verse dates follow one chronology (Ussher-style, e.g. creation at 4003 BC). The app must label them 'per Theographic' (sourcing rule 4). Theographic's own KJV verse text is not imported."
+      "notes": "Event and verse dates follow one chronology (Ussher-style, e.g. creation at 4003 BC). The app must label them 'per Theographic' (sourcing rule 4). Theographic's own KJV verse text is not imported. Theographic's definitions.json summaries carry AI model and generation fields and are NOT imported (sourcing rule 1)."
+    },
+    {
+      "id": "openbible_xrefs",
+      "name": "OpenBible.info Cross References",
+      "phase": 2,
+      "repo": "https://github.com/scrollmapper/bible_databases",
+      "commit": "59b18c5af5845728c275d5b7178ad0d024172b1f",
+      "files": [
+        "sources/extras/cross_references.txt"
+      ],
+      "license": "CC BY (as stated in the file header: \"www.openbible.info CC-BY 2024-11-04\")",
+      "license_file": "licenses/OpenBible-cross-references.txt",
+      "license_group": "open",
+      "attribution": "Cross references from OpenBible.info (www.openbible.info), CC BY. Votes are OpenBible's, as published.",
+      "homepage": "https://www.openbible.info/labs/cross-references/",
+      "notes": "Copied unchanged into the scrollmapper/bible_databases mirror (header line retained), which allows pinning to a commit. References use English (KJV-style) numbering."
+    },
+    {
+      "id": "openbible_geo",
+      "name": "OpenBible.info Bible Geocoding Data",
+      "phase": 2,
+      "repo": "https://github.com/openbibleinfo/Bible-Geocoding-Data",
+      "commit": "7eb18a5ee62f27b9b93bd6689ea272d76dd23b8f",
+      "files": [
+        "data/ancient.jsonl",
+        "license.txt",
+        "readme.md"
+      ],
+      "license": "CC BY 4.0 (OpenStreetMap-derived geometry: ODbL 1.0)",
+      "license_file": "licenses/OpenBible-Geocoding-CC-BY-4.0.txt",
+      "license_group": "open",
+      "attribution": "Bible Geocoding Data from OpenBible.info, CC BY 4.0. Contains OpenStreetMap data © OpenStreetMap contributors (ODbL).",
+      "homepage": "https://www.openbible.info/geo/",
+      "notes": "Confidence = OpenBible's time-weighted score (time_total), a fraction of 1000; OpenBible states that 500 or higher represents high confidence. All candidate identifications are imported, ranked as published."
     }
   ]
 }

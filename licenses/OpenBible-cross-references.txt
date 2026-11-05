@@ -1,0 +1,12 @@
+OpenBible.info Cross References — license
+==========================================
+
+Source: https://www.openbible.info/labs/cross-references/
+Copy used: https://github.com/scrollmapper/bible_databases, file
+  sources/extras/cross_references.txt, at the commit pinned in data-pipeline/sources.json.
+
+The file's own header line reads (verbatim):
+  From Verse	To Verse	Votes	#www.openbible.info CC-BY 2024-11-04
+
+License: Creative Commons Attribution (CC BY). Credit OpenBible.info and link to
+https://www.openbible.info. Confirm the version on openbible.info before any public release.

@@ -48,17 +48,41 @@ and reference mapping.
 
 ## Berean Standard Bible
 
-- Verse text is taken from `BSB.json` as published (whitespace trimmed).
-- Word alignment is taken from the `<w>` tags in `BSB-osis.json`: Strong's number, lemma,
-  transliteration and the English words inside the tag. Tags with no Strong's number are skipped.
-- **Known issue:** in `BSB.json`, psalm superscriptions are joined to the start of
-  verse 1 (e.g. Ps 3:1 begins "A Psalm of David, when he fled…"). The superscription
-  belongs to ORG verse 1 and the rest to ORG verse 2. The Passage Lens phase will split
-  them using the `<title>` element in `BSB-osis.json`.
+- Everything comes from `BSB-osis.json`. Verse text is the verse with its `<title>` and
+  `<note>` elements removed, tags stripped and whitespace collapsed. The build fails unless
+  this text matches `BSB.json` (the plain edition) apart from psalm superscriptions and spacing.
+- Psalm superscriptions (`<title type="psalm">`) are stored as verse 0, which maps to ORG verse 1.
+  `BSB.json` joins them to verse 1; the OSIS file keeps them separate.
+- Section headings (`<title>` with no type) and acrostic headings are kept verbatim. Parallel-passage
+  and scope titles are not imported.
+- Footnotes (`<note>`) are kept verbatim, as plain text, attached to their verse. The position of the
+  note marker inside the verse is not kept.
+- Word alignment is taken from the `<w>` tags: Strong's number, lemma, transliteration and the
+  English words inside the tag. Tags with no Strong's number are skipped.
+
+## OpenBible.info cross references
+
+- Every row is imported with its vote count. Where the same from/to pair appears twice, the first is kept.
+- References use English numbering. Most follow KJV numbering; a few follow the NRSV/ESV split
+  (e.g. 3 John 1:15), so a reference resolves through either English scheme.
+- The reader shows up to 12 per verse, highest votes first.
+
+## OpenBible.info geocoding
+
+- Every ancient place, the verses naming it, and every identification are imported in OpenBible's
+  published order. Descriptions have their markup removed; wording is unchanged.
+- The map point for an identification is the first of its resolutions that has coordinates.
+- Confidence is OpenBible's `score.time_total` (a fraction of 1000). The reader shows it as a
+  percentage. Styling: 500 or more (OpenBible's own "high confidence" threshold) solid; 100–499
+  dashed; under 100 dotted. The 100 cut-off is this app's display choice.
 
 ## Theographic
 
 - Theographic's KJV verse text and generated markup fields are not imported.
+- `definitions.json` is not imported: its summaries carry AI model, batch and generation-date
+  fields, so sourcing rule 1 excludes them.
+- Easton's articles are linked to a chapter when the article itself cites a verse in it
+  (its own scripture links). No other matching is done.
 - Place coordinates are kept only when both latitude and longitude are present; five
   places with a latitude but no longitude are stored without coordinates (listed in
   the build report).

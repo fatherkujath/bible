@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+/* Fonts are bundled so reading works offline. */
+@import "@fontsource/literata/400.css";
+@import "@fontsource/literata/400-italic.css";
+@import "@fontsource/literata/600.css";
+@import "@fontsource/public-sans/400.css";
+@import "@fontsource/public-sans/600.css";
+@import "@fontsource/noto-serif-hebrew/400.css";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ---- Tokens ---------------------------------------------------------------
+   Vellum and stone neutrals, green-black ink, one olive accent.            */
+:root {
+  --vellum: #edebe2;   /* app background */
+  --page: #f7f6f1;     /* reading surface */
+  --stone: #cfcbbe;    /* rules and borders */
+  --stone-soft: #e3e0d5;
+  --ink: #23241f;      /* text */
+  --muted: #5c5f55;    /* secondary text (5.9:1 on page) */
+  --olive: #55652a;    /* accent (6.2:1 on page) */
+  --olive-soft: #e4e7d3;
+  --focus: #3d4a1a;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --vellum: #161713; --page: #1e1f1a; --stone: #3a3c33; --stone-soft: #2a2c25;
+    --ink: #e7e5db; --muted: #a9ab9e; --olive: #b2c27a; --olive-soft: #2d331d; --focus: #d3e09a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --vellum: #161713; --page: #1e1f1a; --stone: #3a3c33; --stone-soft: #2a2c25;
+  --ink: #e7e5db; --muted: #a9ab9e; --olive: #b2c27a; --olive-soft: #2d331d; --focus: #d3e09a;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-vellum: var(--vellum);
+  --color-page: var(--page);
+  --color-stone: var(--stone);
+  --color-stone-soft: var(--stone-soft);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-olive: var(--olive);
+  --color-olive-soft: var(--olive-soft);
+  --font-serif: "Literata", "Noto Serif Hebrew", Georgia, serif;
+  --font-sans: "Public Sans", system-ui, sans-serif;
+  --font-hebrew: "Noto Serif Hebrew", "Literata", serif;
+}
+
+html { background: var(--vellum); color: var(--ink); }
+body { background: var(--vellum); color: var(--ink); font-family: var(--font-sans); font-size: 1rem; line-height: 1.5; }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+a { color: inherit; text-decoration-color: var(--stone); text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--olive); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+:root[data-motion="reduce"] *, :root[data-motion="reduce"] *::before { transition: none !important; animation: none !important; }
+
+/* ---- Scripture ------------------------------------------------------------ */
+.scripture { font-family: var(--font-serif); font-size: 1.1875rem; line-height: 1.75; }
+.scripture .heading { font-family: var(--font-serif); font-weight: 600; font-size: 1.0625rem; margin: 2rem 0 0.5rem; }
+.scripture .superscription { font-style: italic; color: var(--muted); margin-bottom: 0.75rem; }
+
+/* A verse row: [margin marks][number][text]. The margin is the study-Bible gutter. */
+.verse { scroll-margin-top: 4.5rem; display: grid; grid-template-columns: 1.25rem 2rem 1fr; column-gap: 0.25rem; padding: 0.15rem 0; border-radius: 4px; }
+.verse.is-focused { background: var(--olive-soft); }
+.verse-num {
+  font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted); text-align: right;
+  padding-top: 0.45rem; padding-right: 0.25rem; background: none; border: 0; cursor: pointer; height: fit-content;
+  min-width: 24px; min-height: 24px;
+}
+.verse-num:hover, .verse.is-focused .verse-num { color: var(--olive); }
+.marks { display: flex; flex-direction: column; align-items: center; gap: 3px; padding-top: 0.7rem; }
+.mark { width: 5px; height: 5px; border-radius: 9999px; background: var(--olive); opacity: 0.85; }
+.mark.ring { background: transparent; border: 1.25px solid var(--olive); width: 6px; height: 6px; }
+.mark.bar { border-radius: 1px; height: 2px; width: 7px; }
+
+.note-btn { font-family: var(--font-sans); font-size: 0.7rem; color: var(--olive); vertical-align: super; background: none; border: 0; cursor: pointer; padding: 0 2px; }
+.footnote { font-family: var(--font-sans); font-size: 0.875rem; line-height: 1.5; color: var(--muted); border-left: 2px solid var(--stone); padding-left: 0.6rem; margin: 0.25rem 0 0.5rem; }
+
+/* ---- Context panel -------------------------------------------------------- */
+.panel-tab { font-size: 0.875rem; padding: 0.55rem 0.6rem; border-bottom: 2px solid transparent; color: var(--muted); white-space: nowrap; min-height: 44px; }
+.panel-tab[aria-selected="true"] { color: var(--ink); border-color: var(--olive); }
+.panel-tab .count { font-size: 0.75rem; color: var(--muted); margin-left: 0.25rem; }
+
+.card { padding: 0.9rem 0; border-top: 1px solid var(--stone-soft); }
+.card:first-child { border-top: 0; }
+.card-title { font-family: var(--font-serif); font-size: 1.0625rem; font-weight: 600; }
+.meta { font-size: 0.8125rem; color: var(--muted); }
+.empty { font-size: 0.9375rem; color: var(--muted); padding: 1rem 0; }
+.article { font-family: var(--font-serif); font-size: 0.9875rem; line-height: 1.7; }
+.article p + p { margin-top: 0.6rem; }
+
+.chip {
+  font-size: 0.6875rem; color: var(--muted); border: 1px solid var(--stone); border-radius: 9999px;
+  padding: 0.05rem 0.5rem; background: transparent; cursor: pointer; line-height: 1.6; min-height: 24px;
+}
+.chip:hover { color: var(--olive); border-color: var(--olive); }
+
+/* Confidence: one visual language everywhere (solid / dashed / dotted). */
+.conf { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 9999px; border: 2px solid var(--olive); vertical-align: -0.1rem; }
+.conf-high { background: var(--olive); border-style: solid; }
+.conf-medium { border-style: dashed; }
+.conf-low { border-style: dotted; }
+
+.hebrew { font-family: var(--font-hebrew); font-size: 1.35rem; direction: rtl; }
+.greek { font-family: var(--font-serif); font-size: 1.15rem; }
+
+/* Phone: panel becomes a bottom sheet. */
+@media (max-width: 1023px) {
+  .sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; max-height: 78vh; border-top: 1px solid var(--stone);
+           border-radius: 14px 14px 0 0; box-shadow: 0 -6px 24px rgb(0 0 0 / 0.12); transition: transform 220ms ease; }
+  .sheet[data-open="false"] { transform: translateY(calc(100% - 6.25rem)); }
+}

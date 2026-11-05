@@ -6,6 +6,7 @@
     python -m sic_pipeline build        build build/reference.db
     python -m sic_pipeline validate     run validation checks on the built database
     python -m sic_pipeline attributions regenerate ATTRIBUTIONS.md
+    python -m sic_pipeline export       write app/public/data/ (static JSON for the reader)
     python -m sic_pipeline reproduce    build twice from scratch and compare content hashes
 """
 from __future__ import annotations
@@ -13,7 +14,7 @@ from __future__ import annotations
 import json
 import sys
 
-from . import attributions, build, fetch, validate
+from . import attributions, build, export, fetch, validate
 from .common import REPORT_PATH
 
 
@@ -44,11 +45,16 @@ def main(argv: list[str]) -> int:
         return 0 if result["passed"] else 1
     elif cmd == "attributions":
         attributions.generate()
+    elif cmd == "export":
+        export.export()
     elif cmd == "all":
         print("Fetching sources")
         fetch.fetch_all()
         ok = _build_and_validate()
         attributions.generate()
+        if ok:
+            print("Exporting app data")
+            export.export()
         return 0 if ok else 1
     elif cmd == "reproduce":
         first = build.build()["content_sha256"]

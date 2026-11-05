@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#55652a"/>
+  <!-- An open book whose margin carries three small marks: the reader's margin notes. -->
+  <path d="M96 150c56-22 112-22 160 8v228c-48-30-104-30-160-8z" fill="#f7f6f1"/>
+  <path d="M416 150c-56-22-112-22-160 8v228c48-30 104-30 160-8z" fill="#edebe2"/>
+  <circle cx="132" cy="210" r="9" fill="#55652a"/>
+  <circle cx="132" cy="250" r="9" fill="none" stroke="#55652a" stroke-width="5"/>
+  <rect x="122" y="286" width="20" height="6" rx="2" fill="#55652a"/>
+</svg>

@@ -35,5 +35,19 @@
       "geo/pauls_journeys_all.geojson": "73aeac9b99d458aaae707bc346420421ec8f5e78ccfbba113261182e9e74ae8f",
       "LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297"
     }
+  },
+  "openbible_xrefs": {
+    "commit": "59b18c5af5845728c275d5b7178ad0d024172b1f",
+    "files": {
+      "sources/extras/cross_references.txt": "452b263f657d3e721d20341b6b82f1196fc98882d685bd4ef9050ae17f033f82"
+    }
+  },
+  "openbible_geo": {
+    "commit": "7eb18a5ee62f27b9b93bd6689ea272d76dd23b8f",
+    "files": {
+      "data/ancient.jsonl": "b8187aa4737e8517ccc090f765d2be11da4c548cd2a59d3cdcb62e952cb8c0f2",
+      "license.txt": "f5b745ef98087f531e719ee8ca6a96809444573ecc7173c6fa68eaad39b3cc3f",
+      "readme.md": "dfd6e967ffdd139ea2cf3222ed2ca0f56d44da6653247a624aece279ad85e782"
+    }
   }
 }

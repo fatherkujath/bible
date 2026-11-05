@@ -13,13 +13,23 @@ keeps a pointer back to where it came from.
 | Phase | State |
 | --- | --- |
 | 0. NKJV licensing (owner) | Not started: request access from API.Bible / HarperCollins |
-| 1. Foundations | **Done, awaiting owner review** |
-| 2. Passage Lens | Next |
+| 1. Foundations | Done |
+| 2. Passage Lens | **Built, awaiting owner review** |
+| 3. Daily Walk | Next |
 
-Phase 1 exit check: BSB, STEPBible and Theographic import with zero unresolved verse
-references. Run `python -m sic_pipeline all` to see it pass.
+Phase 2 exit check: every chapter of every book loads, and every context tab shows
+sourced content or "No sourced material yet." Run `python3 tools/check_chapters.py`
+against the built site to see it pass. Hosting: see [DEPLOY.md](DEPLOY.md).
 
-## Quick start
+## Build the whole site
+
+```bash
+bash scripts/build-site.sh       # data pipeline + web app; output in app/out/
+```
+
+To preview locally: `cd app/out && python3 -m http.server 4173`, then open http://localhost:4173.
+
+## Quick start (data only)
 
 Requirements: Python 3.11+ and git. No Python packages to install.
 
@@ -51,7 +61,10 @@ data-pipeline/
     importers/                 one importer per source
     validate.py                validation checks (any failure fails the build)
 licenses/                      license text or terms for each source
-app/                           Next.js app (from Phase 2)
+app/                           Next.js reader (static export to app/out/)
+  public/data/                 per-chapter JSON written by the pipeline (not committed)
+scripts/build-site.sh          one command that builds everything (used by Cloudflare Pages)
+tools/check_chapters.py        Phase 2 exit check over every chapter
 .github/workflows/             CI: fetch, build, validate, hash and attribution checks
 ATTRIBUTIONS.md                generated from the manifest; do not edit by hand
 ```
@@ -74,11 +87,16 @@ Joel 3:1, Malachi 4:1 to Malachi 3:19, and Psalm 3:1 to Psalm 3:2 (the superscri
 - Content needing separate permission is excluded: the TBESH "Meaning" column (Abridged
   BDB, © Online Bible).
 
-## Known issues for Phase 2
+## Known gaps
 
-- BSB psalm superscriptions are joined to verse 1 in `BSB.json`; the reader will split them
-  using the `<title>` element in `BSB-osis.json`.
-- TBESG Greek definitions are not yet imported (their upstream digitization license needs checking);
-  glosses are available for both Hebrew and Greek.
-- Three malformed tokens in TIPNR reference columns are skipped and listed in the build report;
-  they should be reported to STEPBible.
+- **Study notes:** Tyndale Open Study Notes and Bible Dictionary are waiting for Tyndale's original
+  files. The only copy reachable from the build environment is Mission Mutual's rewritten
+  "Aquifer" adaptation, which the owner chose not to use. Until then, the World tab shows
+  "No sourced material yet." for study notes, and Culture and terms uses Easton's (1897).
+- **Rulers:** no listed source gives rulers by period yet; the World tab says so.
+- **Greek definitions:** TBESG definitions are not imported (digitization license unchecked);
+  glosses are available for Hebrew and Greek.
+- **TIPNR:** three malformed reference tokens are skipped and listed in the build report;
+  report them to STEPBible.
+- **Offline:** chapters you have opened are cached for offline reading. A "download everything
+  for offline" option is planned.

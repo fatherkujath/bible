@@ -145,6 +145,69 @@ CREATE TABLE name_relation (
   PRIMARY KEY (unique_name, relation, other_name)
 );
 
+
+-- BSB section headings (printed before a verse) and footnotes, verbatim.
+CREATE TABLE bsb_heading (
+  scheme_ref TEXT NOT NULL,              -- the verse the heading precedes
+  seq        INTEGER NOT NULL,
+  kind       TEXT NOT NULL,              -- 'section' or 'acrostic'
+  text       TEXT NOT NULL,
+  source_id  TEXT NOT NULL REFERENCES source(id),
+  record_id  TEXT NOT NULL,
+  PRIMARY KEY (scheme_ref, seq)
+);
+CREATE TABLE bsb_note (
+  scheme_ref TEXT NOT NULL,
+  seq        INTEGER NOT NULL,
+  text       TEXT NOT NULL,
+  source_id  TEXT NOT NULL REFERENCES source(id),
+  record_id  TEXT NOT NULL,
+  PRIMARY KEY (scheme_ref, seq)
+);
+
+-- OpenBible.info cross references (English KJV-style numbering, as published).
+CREATE TABLE xref (
+  from_ref  TEXT NOT NULL,
+  to_start  TEXT NOT NULL,
+  to_end    TEXT NOT NULL,
+  votes     INTEGER NOT NULL,
+  source_id TEXT NOT NULL REFERENCES source(id),
+  record_id TEXT NOT NULL,
+  PRIMARY KEY (from_ref, to_start, to_end)
+);
+CREATE INDEX xref_from ON xref(from_ref, votes DESC);
+
+-- OpenBible.info geocoding: ancient places, the verses naming them, and every
+-- candidate identification with OpenBible's confidence (fraction of 1000).
+CREATE TABLE geo_place (
+  id        TEXT PRIMARY KEY,
+  name      TEXT NOT NULL,
+  url_slug  TEXT,
+  types     TEXT,
+  source_id TEXT NOT NULL REFERENCES source(id),
+  record_id TEXT NOT NULL
+);
+CREATE TABLE geo_place_verse (
+  place_id  TEXT NOT NULL REFERENCES geo_place(id),
+  kjv_ref   TEXT NOT NULL,
+  source_id TEXT NOT NULL REFERENCES source(id),
+  record_id TEXT NOT NULL,
+  PRIMARY KEY (place_id, kjv_ref)
+);
+CREATE INDEX geo_place_verse_ref ON geo_place_verse(kjv_ref);
+CREATE TABLE geo_identification (
+  place_id    TEXT NOT NULL REFERENCES geo_place(id),
+  rank        INTEGER NOT NULL,          -- 1 = OpenBible's top-ranked identification
+  description TEXT NOT NULL,             -- OpenBible's description, markup removed
+  confidence  INTEGER,                   -- OpenBible score.time_total (of 1000)
+  lon         REAL,
+  lat         REAL,
+  point_type  TEXT,                      -- e.g. 'representative point'
+  source_id   TEXT NOT NULL REFERENCES source(id),
+  record_id   TEXT NOT NULL,
+  PRIMARY KEY (place_id, rank)
+);
+
 -- ---------------------------------------------------------------- share-alike
 -- Theographic Bible Metadata (CC BY-SA 4.0). Dates follow Theographic's single
 -- chronology and must be labeled as such in the app.
