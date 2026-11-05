@@ -1,0 +1,39 @@
+{
+  "bsb": {
+    "commit": "59b18c5af5845728c275d5b7178ad0d024172b1f",
+    "files": {
+      "sources/en/BSB/BSB.json": "24668c9497def405e472fa157a888fa1a4709a13e3d0e03c1dc0bdcd38fa3adf",
+      "sources/en/BSB/BSB-osis.json": "287e7b68f57df33cb7875a7aafa181cd6abffdc67c4f5cec3d237c6181e641ed",
+      "sources/en/BSB/README.md": "c678101ec1e81a6435afd759938bf3f85a37b16f90931488b2643bfa990e766e"
+    }
+  },
+  "stepbible": {
+    "commit": "5de0a47f35f0fc13dfe1430d104e5db8a4285f9c",
+    "files": {
+      "Translators Amalgamated OT+NT/TAHOT Gen-Deu - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt": "7763ef367bb0e6e1c1a95fb9b652e1d611b2481827611433e82abbf229216d70",
+      "Translators Amalgamated OT+NT/TAHOT Jos-Est - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt": "b79add01a8c95673e31ec3ab8ad86183d2312cd96421ddf21f3d1f74377526a7",
+      "Translators Amalgamated OT+NT/TAHOT Job-Sng - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt": "e0416880bb78f46715bb17ce526b623c3051da0ef83f7bf83beaad350e6272e8",
+      "Translators Amalgamated OT+NT/TAHOT Isa-Mal - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt": "d5a609f5a4b9f7757a2615e55877b07f9f6931a8afccef012c0b4bf662caf540",
+      "Translators Amalgamated OT+NT/TAGNT Mat-Jhn - Translators Amalgamated Greek NT - STEPBible.org CC-BY.txt": "d4c0c820fdf9f2b450c9f96ce6103d6875028affd2e44094d753f1329ca1fd85",
+      "Translators Amalgamated OT+NT/TAGNT Act-Rev - Translators Amalgamated Greek NT - STEPBible.org CC-BY.txt": "122040eeeaeba50d6abbf67b39cacaff687211bda69b080e5d53927c830d9968",
+      "Lexicons/TBESH - Translators Brief lexicon of Extended Strongs for Hebrew - STEPBible.org CC BY.txt": "848eef2ac16753a43694897dbb9e8f266725e7cc9da4809f367ee5b990f05dbb",
+      "Lexicons/TBESG - Translators Brief lexicon of Extended Strongs for Greek - STEPBible.org CC BY.txt": "734a5b64a1152f67604bf09d32f15c0ba537151961752fcf168087b41b4d93ea",
+      "Proper Nouns/TIPNR - Translators Individualised Proper Names with all References - STEPBible.org CC BY.txt": "d595b9163d32a400bb0ef96b27a6de58335a63da840b82531fe9f5e1d16a318c",
+      "README.md": "261d5157c0ffeadeedad3f734db945a4c3642e3e4ce5fa28002985b6c52437b1"
+    }
+  },
+  "theographic": {
+    "commit": "3f461f2f3cf8939f2b79430ae238a36528024ed3",
+    "files": {
+      "json/books.json": "fdaebcc53eff498e52b161be67bbc278a619cdcab843a439202d89388affd99a",
+      "json/verses.json": "b6be3dbcab9f6a6c5fffbfd67dc3092b754d500616d6c36618e5c586d7d97942",
+      "json/people.json": "12dc359f0892d1a706a9d0b597c82d6cb8e7bde2137d729459804b8fd33ce450",
+      "json/places.json": "3449802946dc9c3113096e14a1129613a179a533a99dee446bf82c6426bab280",
+      "json/events.json": "b0a84a4d310b3e81d2fbc43a86a84ee70b888b933c4e9b79c315c0405618e691",
+      "json/peopleGroups.json": "fcda249cb8b122919e22d1d1d3aa5760237832ac300507ca34e4311d4ae940fb",
+      "json/easton.json": "3b8b86a5ec0fba3a3c157e703d1d809d0de055a427d7c4d86fd918d0333740d4",
+      "geo/pauls_journeys_all.geojson": "73aeac9b99d458aaae707bc346420421ec8f5e78ccfbba113261182e9e74ae8f",
+      "LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297"
+    }
+  }
+}

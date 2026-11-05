@@ -1,0 +1,9 @@
+# Pipeline downloads and output (reproducible from `python -m sic_pipeline all`)
+data-pipeline/.cache/
+data-pipeline/build/
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+.next/
+.env*

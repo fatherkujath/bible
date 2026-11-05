@@ -1,0 +1,72 @@
+{
+  "_comment": "Data manifest. Every source the app loads is listed here with a pinned commit, the exact files used, its license and the attribution the app must show. Edit this file to add or bump a source, then run `python -m sic_pipeline lock` to refresh file hashes.",
+  "sources": [
+    {
+      "id": "bsb",
+      "name": "Berean Standard Bible",
+      "phase": 1,
+      "repo": "https://github.com/scrollmapper/bible_databases",
+      "commit": "59b18c5af5845728c275d5b7178ad0d024172b1f",
+      "files": [
+        "sources/en/BSB/BSB.json",
+        "sources/en/BSB/BSB-osis.json",
+        "sources/en/BSB/README.md"
+      ],
+      "license": "Public domain (dedicated by Berean Bible / Bible Hub, April 30, 2023)",
+      "license_file": "licenses/BSB.txt",
+      "license_group": "open",
+      "attribution": "The Holy Bible, Berean Standard Bible, BSB. Produced in cooperation with Bible Hub, Discovery Bible, OpenBible.info, and the Berean Bible Translation Committee. Dedicated to the public domain.",
+      "homepage": "https://berean.bible",
+      "notes": "Fetched from the scrollmapper/bible_databases mirror (OSIS JSON with word-level Strong's alignment) because it can be pinned to a git commit. The official downloads at bereanbible.com are the upstream source; the mirror's README labels the text CC0."
+    },
+    {
+      "id": "stepbible",
+      "name": "STEPBible Data (Tyndale House, Cambridge)",
+      "phase": 1,
+      "repo": "https://github.com/STEPBible/STEPBible-Data",
+      "commit": "5de0a47f35f0fc13dfe1430d104e5db8a4285f9c",
+      "files": [
+        "Translators Amalgamated OT+NT/TAHOT Gen-Deu - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt",
+        "Translators Amalgamated OT+NT/TAHOT Jos-Est - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt",
+        "Translators Amalgamated OT+NT/TAHOT Job-Sng - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt",
+        "Translators Amalgamated OT+NT/TAHOT Isa-Mal - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt",
+        "Translators Amalgamated OT+NT/TAGNT Mat-Jhn - Translators Amalgamated Greek NT - STEPBible.org CC-BY.txt",
+        "Translators Amalgamated OT+NT/TAGNT Act-Rev - Translators Amalgamated Greek NT - STEPBible.org CC-BY.txt",
+        "Lexicons/TBESH - Translators Brief lexicon of Extended Strongs for Hebrew - STEPBible.org CC BY.txt",
+        "Lexicons/TBESG - Translators Brief lexicon of Extended Strongs for Greek - STEPBible.org CC BY.txt",
+        "Proper Nouns/TIPNR - Translators Individualised Proper Names with all References - STEPBible.org CC BY.txt",
+        "README.md"
+      ],
+      "license": "CC BY 4.0",
+      "license_file": "licenses/STEPBible-CC-BY-4.0.txt",
+      "license_group": "open",
+      "attribution": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge (CC BY 4.0). Source: https://STEPBible.github.io/STEPBible-Data",
+      "homepage": "https://www.stepbible.org",
+      "notes": "STEPBible asks users to note any changes they make to the data. Changes made by this pipeline are listed in data-pipeline/CHANGES-TO-SOURCE-DATA.md. TIPNR descriptions (@Briefest, @Brief, @Short, @Article and the #Summary field) are described in the STEPBible README as created by Claude 3 AI and are NOT imported (sourcing rule 1)."
+    },
+    {
+      "id": "theographic",
+      "name": "Theographic Bible Metadata",
+      "phase": 1,
+      "repo": "https://github.com/robertrouse/theographic-bible-metadata",
+      "commit": "3f461f2f3cf8939f2b79430ae238a36528024ed3",
+      "files": [
+        "json/books.json",
+        "json/verses.json",
+        "json/people.json",
+        "json/places.json",
+        "json/events.json",
+        "json/peopleGroups.json",
+        "json/easton.json",
+        "geo/pauls_journeys_all.geojson",
+        "LICENSE"
+      ],
+      "license": "CC BY-SA 4.0",
+      "license_file": "licenses/Theographic-CC-BY-SA-4.0.txt",
+      "license_group": "share-alike",
+      "attribution": "Theographic Bible Metadata by Robert Rouse (viz.bible), licensed CC BY-SA 4.0. Includes Easton's Bible Dictionary (1897, public domain text).",
+      "homepage": "https://theographic.netlify.app",
+      "notes": "Event and verse dates follow one chronology (Ussher-style, e.g. creation at 4003 BC). The app must label them 'per Theographic' (sourcing rule 4). Theographic's own KJV verse text is not imported."
+    }
+  ]
+}

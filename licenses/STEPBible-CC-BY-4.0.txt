@@ -1,0 +1,25 @@
+STEPBible Data — license terms
+==============================
+
+Source: https://github.com/STEPBible/STEPBible-Data (pinned commit in data-pipeline/sources.json)
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+Legal code: https://creativecommons.org/licenses/by/4.0/legalcode
+
+Terms as published in the header of each STEPBible data file (copied verbatim):
+
+ Data created by www.STEPBible.org based on work at Tyndale House Cambridge (CC BY 4.0)
+ ==============================================================
+ This licence allows you to:
+ * Include any part of this data in software or publications and send it to AI servers without requesting permission
+ * Download the data and reformat it for your application
+ * Send any proposed corrections to STEPBible@Gmail.com to be verified
+ (You MAY make changes yourself, but you should include a note of changes that can be viewed by those who use your new data)
+ * Attribute the data to Tyndale House and STEPBible.org, and include a link to STEPBible.github.io/STEPBible-Data as the source of this data.
+ Please do not post copies of this data file elsewhere, so that this remains the single up-to-date source"
+ * We'd love to hear about your project and add it to our Partners Page when you make it available. Email us at STEPBible@Gmail.com.
+
+Additional restriction noted in the TBESH header (copied verbatim):
+
+Meaning These are based on the Abridged BDB by Online Bible, © Larry Pierce of OnlineBible.net <olbsupport@onlinebible.net>. They are for guidance only. Permission should be gained from Online Bible before these are applied in any project.
+
+This project therefore does not import the TBESH Meaning column. See data-pipeline/CHANGES-TO-SOURCE-DATA.md.

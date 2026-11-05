@@ -1,0 +1,51 @@
+name: Data pipeline
+
+on:
+  push:
+    paths: ["data-pipeline/**", "licenses/**", ".github/workflows/data-pipeline.yml"]
+  pull_request:
+    paths: ["data-pipeline/**", "licenses/**", ".github/workflows/data-pipeline.yml"]
+  workflow_dispatch:
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: data-pipeline
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Source downloads are pinned by commit and verified by hash, so caching is safe.
+      - name: Cache pinned sources
+        uses: actions/cache@v4
+        with:
+          path: data-pipeline/.cache/sources
+          key: sources-${{ hashFiles('data-pipeline/sources.lock.json') }}
+
+      - name: Fetch, build and validate
+        run: python -m sic_pipeline all
+
+      - name: Database matches the expected content hash
+        run: |
+          expected=$(cat expected-content.sha256)
+          actual=$(python -c "import json;print(json.load(open('build/build-report.json'))['content_sha256'])")
+          echo "expected $expected"
+          echo "actual   $actual"
+          test "$expected" = "$actual"
+
+      - name: ATTRIBUTIONS.md is up to date
+        run: git diff --exit-code -- ../ATTRIBUTIONS.md
+
+      - name: Upload build report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-report
+          path: |
+            data-pipeline/build/build-report.json
+            data-pipeline/build/attributions.json

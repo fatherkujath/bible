@@ -1,0 +1,14 @@
+Berean Standard Bible (BSB) — license status
+=============================================
+
+Status: Public domain. The Berean Standard Bible text was dedicated to the
+public domain by its publishers on April 30, 2023.
+
+Upstream: https://berean.bible (official downloads at https://bereanbible.com)
+Copy used by this project: https://github.com/scrollmapper/bible_databases,
+  file sources/en/BSB/BSB.json and BSB-osis.json at the commit pinned in
+  data-pipeline/sources.json. That repository's README for the BSB states:
+  "License: Creative Commons CC0".
+
+Before any public release, confirm the current wording of the dedication on
+berean.bible and copy it into this file.
